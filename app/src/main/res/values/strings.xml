@@ -5,7 +5,7 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_uid">ID anda (unique)</string>
-    <string name="hint_uid_ortu">ID OrangTua (Isikan ID Anda Jika anda orangtua)"</string>
+    <string name="hint_uid_ortu">ID OrangTua (- Jika Tidak Ada)"</string>
     <string name="hint_name">Nama Lengkap</string>
     <string name="btn_login">LOGIN</string>
     <string name="btn_register">REGISTER</string>
@@ -24,13 +24,13 @@
     <string name="title_activity_splash">Splash</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_set_location">SetLocationActivity</string>
+    <string name="title_activity_set_location">Profil User</string>
 
     <string name="hello_world">Hello world!</string>
 <!-- Location Service -->
-    <string name="lbl_you_are_at">POSISI SEKARANG</string>
-    <string name="btn_get_location">Dapatkan Lokasi Saya</string>
-    <string name="btn_start_location_updates">Mulai Update Lokasi</string>
+    <string name="lbl_you_are_at">LOKASI SEKARANG</string>
+    <string name="btn_get_location">Get</string>
+    <string name="btn_start_location_updates">Update</string>
     <string name="btn_stop_location_updates">Stop Update Lokasi</string>
     <string name="title_activity_maps2">KidzArea Map</string>
     <string name="title_activity_riwayat_lokasi">RiwayatLokasi</string>

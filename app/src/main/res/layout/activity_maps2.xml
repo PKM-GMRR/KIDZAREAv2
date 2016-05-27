@@ -40,7 +40,7 @@
         android:layout_alignParentStart="true" />
 
     <ImageButton
-        android:id="@+id/btnAddKid"
+        android:id="@+id/btnAddLocation"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/addkid"
@@ -52,15 +52,28 @@
         android:layout_marginLeft="10dp" />
 
 
+
+
     <ImageButton
-        android:id="@+id/btnAddLocation"
+        android:id="@+id/btnAddKid"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/logokidz_kecil"
         android:textColor="@color/btn_map_bg"
-        android:layout_below="@+id/btn_ViewMyLocation"
-        android:layout_alignLeft="@+id/btn_SwitchMode"
-        android:layout_alignStart="@+id/btn_SwitchMode" />
+        android:layout_alignTop="@+id/btnAddLocation"
+        android:layout_alignLeft="@+id/btnLogout"
+        android:layout_alignStart="@+id/btnLogout" />
+
+    <ImageButton
+        android:id="@+id/btnAnak1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/logokidz_kecil"
+        android:textColor="@color/btn_map_bg"
+        android:layout_above="@+id/btnAddKid"
+        android:layout_alignLeft="@+id/btnAddKid"
+        android:layout_alignStart="@+id/btnAddKid" />
+
 
     <ImageButton
         android:id="@+id/btn_ViewMyLocation"

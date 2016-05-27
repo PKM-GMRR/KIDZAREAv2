@@ -8,7 +8,7 @@
     <color name="bg_register">#2e3237</color>
     <color name="bg_main">#428bca</color>
     <color name="white">#ffffff</color>
-    <color name="input_login">#222222</color>
+    <color name="input_login">#789f</color>
     <color name="input_login_hint">#999999</color>
     <color name="input_register">#888888</color>
     <color name="input_register_bg">#3b4148</color>
@@ -17,7 +17,7 @@
     <color name="btn_login_bg">#eceef1</color>
     <color name="btn_reg">#ffff</color>
     <color name="btn_reg_bg">#00aa44</color>
-    <color name="lbl_name">#333333</color>
+    <color name="lbl_name">#ffff</color>
     <color name="btn_logout_bg">#ff6861</color>
     <color name="btn_map_bg">#00aa44</color>
 
@@ -25,6 +25,6 @@
 
     <!-- Location Service -->
     <color name="view_bg">#00cc44</color>
-    <color name="btn_bg">#576890</color>
+    <color name="btn_bg">#428bca</color>
 
 </resources>

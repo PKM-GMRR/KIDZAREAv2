@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ import com.google.android.gms.location.LocationServices;
 
 import gmrr.kidzarea.R;
 
-public class SetLocationActivity extends Activity implements ConnectionCallbacks,
+public class SetLocationActivity extends AppCompatActivity implements ConnectionCallbacks,
         OnConnectionFailedListener, LocationListener {
 
     // LogCat tag
@@ -47,17 +48,21 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
 
     // UI elements
     private TextView lblLocation;
-    private Button btnShowLocation, btnStartLocationUpdates, btnBackToMaps;
+    private Button btnShowLocation, btnStartLocationUpdates, btnBackToMaps, btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setLogo(R.drawable.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_set_location);
 
         lblLocation = (TextView) findViewById(R.id.lblLocation);
         btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
         btnStartLocationUpdates = (Button) findViewById(R.id.btnLocationUpdates);
         btnBackToMaps = (Button) findViewById(R.id.btnBackToMaps);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
 
         // First we need to check availability of play services
         if (checkPlayServices()) {
@@ -68,7 +73,7 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
             createLocationRequest();
         }
 
-        // Show location button click listener
+                // Show location button click listener
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -96,6 +101,17 @@ public class SetLocationActivity extends Activity implements ConnectionCallbacks
                 finish();
             }
         });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launching the login activity
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
 
     }
 

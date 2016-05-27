@@ -52,7 +52,7 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
     Location myLocation;
     private GoogleApiClient mGoogleApiClient;
 
-    ImageButton btnViewMyLocation, btnSwitchMode, btnAddKid;
+    ImageButton btnViewMyLocation, btnSwitchMode, btnAddLocation;
     Button btnLogout;
 
     @Override
@@ -72,7 +72,7 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
 
         btnViewMyLocation = (ImageButton) findViewById(R.id.btn_ViewMyLocation); //your button
         btnSwitchMode = (ImageButton) findViewById(R.id.btn_SwitchMode);
-        btnAddKid = (ImageButton) findViewById(R.id.btnAddKid);
+        btnAddLocation = (ImageButton) findViewById(R.id.btnAddLocation);
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
         btnSwitchMode.setOnClickListener(new View.OnClickListener() {
@@ -91,18 +91,20 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
             }
         });
 
-        btnAddKid.setOnClickListener(new View.OnClickListener() {
+        btnAddLocation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
                 final Lokasi lokasi = new Lokasi(myLocation);
                 // Input nama lokasi
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity2.this);
                 final EditText txtNamaLokasi = new EditText(MapsActivity2.this);
+
                 builder.setView(txtNamaLokasi).setTitle("Nama Lokasi").setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         lokasi.setName(txtNamaLokasi.getText().toString());
                         simpan(lokasi);
+
                     }
                 }).setNegativeButton("Batal", new DialogInterface.OnClickListener() {
                     @Override

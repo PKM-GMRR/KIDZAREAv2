@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +35,7 @@ import gmrr.kidzarea.app.AppController;
 import gmrr.kidzarea.helper.SQLiteHandler;
 import gmrr.kidzarea.helper.SessionManager;
 
-public class RegisterActivity extends Activity implements OnCheckedChangeListener {
+public class RegisterActivity extends AppCompatActivity implements OnCheckedChangeListener {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnRegister;
     private Button btnLinkToLogin;
@@ -53,6 +54,9 @@ public class RegisterActivity extends Activity implements OnCheckedChangeListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setLogo(R.drawable.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_register);
 /*---------------*/
         inputUniqueID = (EditText) findViewById(R.id.uid);
@@ -73,7 +77,7 @@ public class RegisterActivity extends Activity implements OnCheckedChangeListene
                 // TODO Auto-generated method stub
                 if (radioParent.isChecked()) {
                     inputStatus = "OrangTua";
-                    //inputUniqueIDOrtu = inputUniqueID;
+                    inputUniqueIDOrtu = (EditText) findViewById(R.id.uid);
                 }
                 if (radioAnak.isChecked()) {
                     inputStatus = "Anak";

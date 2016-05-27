@@ -6,12 +6,52 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="60dp"
-        android:src="@drawable/marker_kids"
-        android:layout_gravity="center_horizontal" />
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:background="@color/btn_logout_bg"
+        android:text="@string/btn_logout"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="right" />
+
+    <LinearLayout
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout2"
+
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/NamaProfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/lbl_name"
+            android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13dp" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,29 +72,6 @@
         android:textSize="16dp" />
 
     <Button
-        android:id="@+id/btnShowLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@color/btn_bg"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/btn_get_location"
-        android:textColor="@color/white" />
-
-    <Button
-        android:id="@+id/btnLocationUpdates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@color/btn_bg"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/btn_start_location_updates"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
         android:id="@+id/btnBackToMaps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,8 +79,56 @@
         android:background="@color/btn_bg"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Back to Maps"
+        android:text="Check Map"
         android:textColor="@color/white"
         android:layout_gravity="center_horizontal" />
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal">
+        <Button
+            android:id="@+id/btnShowLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/btn_bg"
+            android:text="@string/btn_get_location"
+            android:textColor="@color/white"
+            android:layout_gravity="right" />
+
+        <Button
+            android:id="@+id/btnLocationUpdates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="@color/btn_bg"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/btn_start_location_updates"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnRiwayat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="#ff5500"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Riwayat Lokasi"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal" />
+
+
 
 </LinearLayout>
