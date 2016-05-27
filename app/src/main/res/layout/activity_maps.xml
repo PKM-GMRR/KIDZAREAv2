@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".activity.MapsActivity2">
+
+    <fragment
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:id="@+id/map"
+        tools:context="gmrr.kidzarea.activity.MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <ImageButton
+        android:id="@+id/btnAddKid"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/addkid"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp" />
+
+
+    <ImageButton
+        android:id="@+id/btnAddLocation"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/addloc"
+        android:textColor="@color/btn_map_bg"
+        android:layout_alignTop="@+id/btn_ViewMyLocation"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:id="@+id/button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/setting"
+        android:text="Setting"
+        android:textColor="#ffffff"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/btn_ViewMyLocation"
+        android:layout_marginEnd="@+id/btn_ViewMyLocation"
+        android:layout_marginRight="@+id/btn_ViewMyLocation" />
+
+    <ImageButton
+        android:id="@+id/btn_ViewMyLocation"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/findme"
+        android:text="Lokasi Saya"
+        android:layout_below="@+id/btnLogout"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:background="@color/btn_logout_bg"
+        android:text="@string/btn_logout"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/btn_ViewMyLocation"
+        android:layout_alignStart="@+id/btn_ViewMyLocation" />
+
+</RelativeLayout>
+
+
+
