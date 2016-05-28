@@ -1,6 +1,7 @@
 package gmrr.kidzarea.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,12 +15,17 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -34,9 +40,15 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import gmrr.kidzarea.R;
+import gmrr.kidzarea.app.AppConfig;
+import gmrr.kidzarea.app.AppController;
 import gmrr.kidzarea.helper.SQLiteHandler;
 import gmrr.kidzarea.helper.SQLiteLocationHandler;
 import gmrr.kidzarea.helper.SessionManager;
@@ -45,12 +57,15 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-   // private SessionManager session;
-    //private SQLiteHandler db;
-   // private Lokasi lokasiTerakhir;
+    private SessionManager session;
+    private SQLiteHandler dbu;
+    private Lokasi lokasiTerakhir;
     LocationRequest mLocationRequest;
     Location myLocation;
     private GoogleApiClient mGoogleApiClient;
+    private static final String TAG = MapsActivity2.class.getSimpleName();
+    private ProgressDialog pDialog;
+    private SQLiteLocationHandler dbl;
 
     ImageButton btnViewMyLocation, btnSwitchMode, btnAddLocation;
     Button btnLogout;
@@ -83,6 +98,22 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
                 finish();
             }
         });
+
+        // SqLite database handler
+        dbu = new SQLiteHandler(getApplicationContext());
+
+        // session manager
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
+
+        // Fetching user details from sqlite
+        HashMap<String, String> user = dbu.getUserDetails();
+
+        String name = user.get("name");
+        String email = user.get("email");
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,8 +164,6 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMapLongClickListener(this);
-
-
     }
 
     public void simpan(final Lokasi lokasi) {
@@ -160,6 +189,9 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
 
     private void logoutUser() {
         // Launching the login activity
+        session.setLogin(false);
+
+        dbu.deleteUsers();
         Intent intent = new Intent(MapsActivity2.this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -265,4 +297,82 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
     protected void startLocationUpdates() {
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
+
+    /**
+     * Function to store location in MySQL database will post params(tag, name,
+     * email, password) to register url
+
+
+
+    private void inputLocation (final String uid, final String longitude, final String latitude, final String waktu) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_location";
+
+        pDialog.setMessage("Registering ...");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_LOCATION, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Location Response: " + response);
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    if (!error) {
+                        // User successfully stored in MySQL
+                        // Now store the user in sqlite
+                        JSONObject lokasi = jObj.getJSONObject("lokasi");
+                        String uid = lokasi.getString("uid");
+                        double longitude = lokasi.getDouble("longitude");
+                        double latitude = lokasi.getDouble("latitude");
+                        String waktu = lokasi.getString("password");
+
+                        // Inserting row in users table
+                        db.addLocation(uid, longitude, latitude, waktu);
+
+                    } else {
+
+                        // Error occurred in registration. Get the error
+                        // message
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("uid", uid);
+                params.put("longitude", longitude);
+                params.put("latitude", latitude);
+                params.put("waktu", waktu);
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    } * */
 }

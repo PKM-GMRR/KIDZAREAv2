@@ -67,7 +67,7 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-	values.put(KEY_UID, uid); // unique
+        values.put(KEY_UID, uid); // unique
         values.put(KEY_LONGITUDE, longitude); // lokasi longitude
         values.put(KEY_LATITUDE, latitude); // lokasi latitude
         values.put(KEY_WAKTU, waktu); // waktu ketika akses tempat
@@ -91,9 +91,9 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
         // Move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-	    location.put("uid", cursor.getString(1));
+	        location.put("uid", cursor.getString(1));
             location.put("longitude", cursor.getString(2));
-	    location.put("latitude", cursor.getString(3));
+	        location.put("latitude", cursor.getString(3));
             location.put("waktu", cursor.getString(4));
         }
         cursor.close();
