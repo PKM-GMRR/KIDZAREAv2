@@ -59,7 +59,8 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private SessionManager session;
     private SQLiteHandler dbu;
-    private Lokasi lokasiTerakhir;
+    Lokasi lokasiTerakhir = new Lokasi();
+
     LocationRequest mLocationRequest;
     Location myLocation;
     private GoogleApiClient mGoogleApiClient;
@@ -69,6 +70,8 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
 
     ImageButton btnViewMyLocation, btnSwitchMode, btnAddLocation;
     Button btnLogout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,8 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
             }
         });
 
+
+
         // SqLite database handler
         dbu = new SQLiteHandler(getApplicationContext());
 
@@ -111,9 +116,11 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
 
         // Fetching user details from sqlite
         HashMap<String, String> user = dbu.getUserDetails();
-
         String name = user.get("name");
         String email = user.get("email");
+
+        //Set Nama
+        lokasiTerakhir.setName(user.get("name"));
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +157,7 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
             @Override
             public void onClick(View view) {
                 CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()))      // Sets the center of the map to location user
+                        .target(new LatLng(lokasiTerakhir.getLatitude(), lokasiTerakhir.getLongitude()))      // Sets the center of the map to location user
                         .zoom(17)                   // Sets the zoom
                         .bearing(0)                // Sets the orientation of the camera
                         .tilt(10)                   // Sets the tilt of the camera to 30 degrees
@@ -180,7 +187,7 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
                 MapsActivity2.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MapsActivity2.this, "Lokasi berhasil disimpan!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapsActivity2.this, "Penanda Lokasi berhasil disimpan!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -245,17 +252,21 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
     @Override
     public void onConnected(Bundle bundle) {
         myLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        lokasiTerakhir.setLongitude(myLocation.getLongitude());
+        lokasiTerakhir.setLatitude(myLocation.getLatitude());
+
         if (myLocation != null) {
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()))      // Sets the center of the map to location user
+                    .target(new LatLng(lokasiTerakhir.getLatitude(), lokasiTerakhir.getLongitude()))      // Sets the center of the map to location user
                     .zoom(17)                   // Sets the zoom
                     .bearing(0)                // Sets the orientation of the camera
                     .tilt(10)                   // Sets the tilt of the camera to 30 degrees
                     .build();                   // Creates a CameraPosition from the builder
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             MarkerOptions myMarker = new MarkerOptions()
-                    .position(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()))
-                    .title("MyLocation");
+                    .position(new LatLng(lokasiTerakhir.getLatitude(), lokasiTerakhir.getLongitude()))
+                    .title(lokasiTerakhir.getName());
             myMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.logokidz_kecil));
             mMap.addMarker(myMarker);
         }

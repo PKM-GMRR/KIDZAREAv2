@@ -70,7 +70,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String uid,String uid_ortu, String name, String email, String password, String status, String created_at) {
+    public void addUser(String uid,String uid_ortu, String name, String email, String status, String created_at) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -78,7 +78,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(KEY_UID_ORTU, uid_ortu); // UID Ortu
         values.put(KEY_NAME, name); // Name
         values.put(KEY_EMAIL, email); // Email
-        values.put(KEY_PASSWORD, password);
+        //values.put(KEY_PASSWORD, password);
         values.put(KEY_STATUS, status); // Status
         values.put(KEY_CREATED_AT, created_at); // Created At
 

@@ -15,6 +15,9 @@ public class Lokasi implements Parcelable {
     private double latitude;
     private String waktu;
 
+    public Lokasi() {
+
+    }
 
     public Lokasi(Location lokasi) {
         this.longitude = lokasi.getLongitude();

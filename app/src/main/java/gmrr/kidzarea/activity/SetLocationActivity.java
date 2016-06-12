@@ -32,6 +32,7 @@ public class SetLocationActivity extends AppCompatActivity implements Connection
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
 
     public Location mLastLocation;
+    public Lokasi lokasiTerakhir;
 
     // Google client to interact with Google API
     private GoogleApiClient mGoogleApiClient;
@@ -47,8 +48,8 @@ public class SetLocationActivity extends AppCompatActivity implements Connection
     private static int DISPLACEMENT = 10; // 10 meters
 
     // UI elements
-    private TextView lblLocation;
-    private Button btnShowLocation, btnStartLocationUpdates, btnBackToMaps, btnLogout;
+    private TextView lblLocation, txtName, txtEmail;;
+    private Button btnShowLocation, btnStartLocationUpdates,btnRiwayat, btnBackToMaps, btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,8 @@ public class SetLocationActivity extends AppCompatActivity implements Connection
         btnStartLocationUpdates = (Button) findViewById(R.id.btnLocationUpdates);
         btnBackToMaps = (Button) findViewById(R.id.btnBackToMaps);
         btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnRiwayat = (Button) findViewById(R.id.btnRiwayat);
+        txtName = (TextView) findViewById(R.id.NamaProfil);
 
         // First we need to check availability of play services
         if (checkPlayServices()) {
@@ -72,6 +75,10 @@ public class SetLocationActivity extends AppCompatActivity implements Connection
 
             createLocationRequest();
         }
+
+        // Displaying the user details on the screen
+        txtName.setText("M Rifqi Zuliansyah");
+        //        txtEmail.setText(email);
 
                 // Show location button click listener
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +104,16 @@ public class SetLocationActivity extends AppCompatActivity implements Connection
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),
                         MapsActivity2.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        btnRiwayat.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),
+                        RiwayatLokasi.class);
                 startActivity(i);
                 finish();
             }
@@ -169,6 +186,8 @@ public class SetLocationActivity extends AppCompatActivity implements Connection
         stopLocationUpdates();
     }
 
+
+
     /**
      * Method to display the location on UI
      * */
@@ -177,8 +196,10 @@ public class SetLocationActivity extends AppCompatActivity implements Connection
         mLastLocation = LocationServices.FusedLocationApi
                 .getLastLocation(mGoogleApiClient);
 
+
+
         if (mLastLocation != null) {
-            double latitude = mLastLocation.getLatitude();
+            double latitude = mLastLocation.getLongitude();
             double longitude = mLastLocation.getLongitude();
             lblLocation.setText(latitude + ", " + longitude);
 

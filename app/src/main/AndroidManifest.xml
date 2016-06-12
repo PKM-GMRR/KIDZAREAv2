@@ -62,7 +62,10 @@
         <activity
             android:name=".activity.RiwayatLokasi"
             android:label="@string/title_activity_riwayat_lokasi" >
-        </activity>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.SetLocationActivity" />
+        </activity>q
 
         <!-- Goolge API Key -->
         <meta-data

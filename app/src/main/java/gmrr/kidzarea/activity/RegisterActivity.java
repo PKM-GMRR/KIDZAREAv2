@@ -177,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity implements OnCheckedChan
                         String created_at = user.getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(uid, uid_ortu, name, email, password, status, created_at);
+                        db.addUser(uid, uid_ortu, name, email, status, created_at);
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 

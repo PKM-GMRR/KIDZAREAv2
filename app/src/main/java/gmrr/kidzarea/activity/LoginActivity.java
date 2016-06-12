@@ -150,12 +150,12 @@ public class LoginActivity extends AppCompatActivity {
                         String uid_ortu = user.getString("uid_ortu");
                         String name = user.getString("name");
                         String email = user.getString("email");
-                        String password = user.getString("password");
+                        //String password = user.getString("password");
                         String status = user.getString("status");
                         String created_at = user.getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(uid, uid_ortu, name, email,  password, status, created_at);
+                        db.addUser(uid, uid_ortu, name, email,  status, created_at);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this, MapsActivity2.class);
