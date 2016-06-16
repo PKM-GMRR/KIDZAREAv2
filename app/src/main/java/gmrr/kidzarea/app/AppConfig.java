@@ -11,5 +11,9 @@ public class AppConfig {
     public static String URL_REGISTER = "http://kidz-area.com/register.php";
 
     // Server user location url
-    public static String URL_LOCATION = "http://kidz-area.com/location.php";
+    public static String URL_LOCATION = "http://kidz-area.com/inputlocation.php";
+
+    // Server user location url
+    public static String URL_GET = "http://kidz-area.com/getlocation.php";
+
 }

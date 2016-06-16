@@ -6,6 +6,7 @@ package gmrr.kidzarea.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,14 @@ public class LoginActivity extends AppCompatActivity {
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
         Button btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
         Button btnJalanPintas = (Button) findViewById(R.id.btnJalanPintas);
+        //edit mulai dari sini
+        EditText warnaTextEmail = (EditText)findViewById(R.id.email);
+        EditText warnaTextPassword = (EditText)findViewById(R.id.password);
+        btnLogin.setTextColor(Color.parseColor("white"));
+        btnJalanPintas.setTextColor(Color.parseColor("white"));
+        warnaTextEmail.setTextColor(Color.BLACK);
+        warnaTextPassword.setTextColor(Color.BLACK);
+//sampai sini
 
         // Progress dialog
         pDialog = new ProgressDialog(this);

@@ -106,6 +106,7 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
 
         // SqLite database handler
         dbu = new SQLiteHandler(getApplicationContext());
+        dbl = new SQLiteLocationHandler(getApplicationContext());
 
         // session manager
         session = new SessionManager(getApplicationContext());
@@ -116,11 +117,12 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
 
         // Fetching user details from sqlite
         HashMap<String, String> user = dbu.getUserDetails();
-        String name = user.get("name");
-        String email = user.get("email");
+//        String name = user.get("name");
+//        String email = user.get("email");
 
         //Set Nama
         lokasiTerakhir.setName(user.get("name"));
+        lokasiTerakhir.setUnique_id(user.get("uid"));
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,6 +266,7 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
                     .tilt(10)                   // Sets the tilt of the camera to 30 degrees
                     .build();                   // Creates a CameraPosition from the builder
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
             MarkerOptions myMarker = new MarkerOptions()
                     .position(new LatLng(lokasiTerakhir.getLatitude(), lokasiTerakhir.getLongitude()))
                     .title(lokasiTerakhir.getName());
@@ -282,6 +285,10 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
     @Override
     public void onLocationChanged(Location location) {
         myLocation = location;
+        lokasiTerakhir.setLongitude(myLocation.getLongitude());
+        lokasiTerakhir.setLatitude(myLocation.getLatitude());
+
+        storeLocation(lokasiTerakhir.getUnique_id(),lokasiTerakhir.getLongitude(),lokasiTerakhir.getLatitude());
 
 
     }
@@ -309,42 +316,34 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
-    /**
-     * Function to store location in MySQL database will post params(tag, name,
-     * email, password) to register url
-
-
-
-    private void inputLocation (final String uid, final String longitude, final String latitude, final String waktu) {
+    private void storeLocation(final String uid, final double longitude, final double latitude) {
         // Tag used to cancel the request
-        String tag_string_req = "req_location";
+        String tag_string_req = "req_register";
+        final String longitude_string = Double.toString(longitude);
+        final String latitude_string = Double.toString(latitude);
 
-        pDialog.setMessage("Registering ...");
-        showDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_LOCATION, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Location Response: " + response);
-                hideDialog();
+                Log.d(TAG, "Register Response: " + response);
 
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
-                        // User successfully stored in MySQL
-                        // Now store the user in sqlite
-                        JSONObject lokasi = jObj.getJSONObject("lokasi");
-                        String uid = lokasi.getString("uid");
-                        double longitude = lokasi.getDouble("longitude");
-                        double latitude = lokasi.getDouble("latitude");
-                        String waktu = lokasi.getString("password");
+                        // location successfully stored in MySQL
+                        // Now store the location in sqlite
+                        JSONObject location =  jObj.getJSONObject("location");
+                        String uid = location.getString("uid");
+                        double longitude = location.getDouble("longitude");
+                        double latitude = location.getDouble("latitude");
+                        String waktu = location.getString("waktu");
 
-                        // Inserting row in users table
-                        db.addLocation(uid, longitude, latitude, waktu);
-
+                        // Inserting row in location table
+                        dbl.addLocation(uid,longitude, latitude, waktu);
                     } else {
 
                         // Error occurred in registration. Get the error
@@ -365,19 +364,16 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
                 Log.e(TAG, "Registration Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
             }
         }) {
 
             @Override
             protected Map<String, String> getParams() {
-                // Posting params to register url
+                // Posting params to location url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("uid", uid);
-                params.put("longitude", longitude);
-                params.put("latitude", latitude);
-                params.put("waktu", waktu);
-
+                params.put("longitude", longitude_string);
+                params.put("latitude", latitude_string);
                 return params;
             }
 
@@ -385,5 +381,5 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    } * */
+    }
 }

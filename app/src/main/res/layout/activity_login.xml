@@ -2,41 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#64dd17"
-    android:gravity="center"
+    android:background="#ffffffff"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:weightSum="1">
+    android:padding="0dp">
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="KIDZAREA"
-        android:textSize="54sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.5" />
+    <ImageView
+        android:id="@+id/imgHome"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/home"
+        android:layout_weight="0.3" />
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="304dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" >
+
+
 
         <EditText
             android:id="@+id/email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="#008855"
+            android:background="@color/white"
             android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/input_login"
+            android:textColor="@color/input_login_hint"
             android:textColorHint="@color/input_login_hint" />
 
         <EditText
@@ -44,12 +41,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="#008855"
+            android:background="@color/white"
             android:hint="@string/hint_password"
             android:inputType="textPassword"
             android:padding="10dp"
             android:singleLine="true"
-            android:textColor="@color/input_login"
+            android:textColor="@color/input_login_hint"
             android:textColorHint="@color/input_login_hint" />
 
         <!-- Login Button -->
@@ -59,18 +56,18 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@color/btn_login_bg"
+            android:background="#66d000"
             android:text="@string/btn_login"
-            android:textColor="@color/btn_login" />
+            android:textColor="#ffffffff" />
 
         <!-- JALAN PINTAS BRO -->
         <Button
             android:id="@+id/btnJalanPintas"
-            android:layout_width="132dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="#ff4000"
-            android:text="@string/btn_login"
+            android:background="#5087ff"
+            android:text="Admin Login"
             android:textColor="@color/white" />
 
         <!-- Link to Login Screen -->

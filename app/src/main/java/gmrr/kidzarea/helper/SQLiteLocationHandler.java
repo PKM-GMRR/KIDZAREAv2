@@ -14,21 +14,21 @@ import java.util.HashMap;
 
 public class SQLiteLocationHandler extends SQLiteOpenHelper {
 
-    private static final String TAG = SQLiteLocationHandler.class.getSimpleName();
+    private static final String TAG = SQLiteHandler.class.getSimpleName();
 
     // All Static variables
     // Database Version
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "login_kidzarea";
+    private static final String DATABASE_NAME = "kidzarea_db";
 
     // Login table name
     private static final String TABLE_LOCATION = "location";
 
     // Login Table Columns names
     private static final String KEY_ID = "id";
-    private static final String KEY_UID = "uid";    
+    private static final String KEY_UID = "uid";
     private static final String KEY_LONGITUDE = "longitude";
     private static final String KEY_LATITUDE = "latitude";
     private static final String KEY_WAKTU = "waktu";
@@ -41,10 +41,11 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOCATION_TABLE = "CREATE TABLE " + TABLE_LOCATION + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"+ KEY_UID + " TEXT," 
-                + KEY_LONGITUDE + " DOUBLE UNIQUE," 
-		+ KEY_LATITUDE + " DOUBLE UNIQUE,"
-                + KEY_WAKTU + " TEXT" + ")";
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_UID + " TEXT UNIQUE,"
+                + KEY_LONGITUDE + " TEXT,"
+                + KEY_LATITUDE + " TEXT,"
+                + KEY_WAKTU + " TEXT)";
         db.execSQL(CREATE_LOCATION_TABLE);
 
         Log.d(TAG, "Database tables created");
@@ -61,16 +62,17 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Storing location details in database
+     * Storing user details in database
      * */
-    public void addLocation(String uid, double longitude,double latitude, String waktu) {
+    public void addLocation(String uid, double longitude, double latitude, String waktu) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_UID, uid); // unique
-        values.put(KEY_LONGITUDE, longitude); // lokasi longitude
-        values.put(KEY_LATITUDE, latitude); // lokasi latitude
-        values.put(KEY_WAKTU, waktu); // waktu ketika akses tempat
+        values.put(KEY_UID, uid); // UID
+        values.put(KEY_LONGITUDE, longitude); // longitude
+        values.put(KEY_LATITUDE, latitude); // latitude
+        values.put(KEY_WAKTU, waktu); // waktu
+
 
         // Inserting Row
         long id = db.insert(TABLE_LOCATION, null, values);
@@ -82,7 +84,7 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
     /**
      * Getting location data from database
      * */
-    public HashMap<String, String> getLocationDetails() {
+    public HashMap<String, String> getUserDetails() {
         HashMap<String, String> location = new HashMap<String, String>();
         String selectQuery = "SELECT  * FROM " + TABLE_LOCATION;
 
@@ -91,15 +93,15 @@ public class SQLiteLocationHandler extends SQLiteOpenHelper {
         // Move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-	        location.put("uid", cursor.getString(1));
+            location.put("uid", cursor.getString(1));
             location.put("longitude", cursor.getString(2));
-	        location.put("latitude", cursor.getString(3));
+            location.put("latitude", cursor.getString(3));
             location.put("waktu", cursor.getString(4));
         }
         cursor.close();
         db.close();
         // return location
-        Log.d(TAG, "Fetching location from Sqlite: " + location.toString());
+        Log.d(TAG, "Fetching user from Sqlite: " + location.toString());
 
         return location;
     }
